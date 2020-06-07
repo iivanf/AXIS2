@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://Conversor" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://Conversor" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://Conversor">
+            <xs:element name="getConversion">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args1" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args2" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getConversionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getConversionRequest">
+    <wsdl:part name="parameters" element="ns:getConversion">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getConversionResponse">
+    <wsdl:part name="parameters" element="ns:getConversionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ConversorPortType">
+    <wsdl:operation name="getConversion">
+      <wsdl:input message="ns:getConversionRequest" wsaw:Action="urn:getConversion">
+    </wsdl:input>
+      <wsdl:output message="ns:getConversionResponse" wsaw:Action="urn:getConversionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConversorHttpBinding" type="ns:ConversorPortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="getConversion">
+      <http:operation location="/axis2/services/Conversor/getConversion"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConversorSoap11Binding" type="ns:ConversorPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getConversion">
+      <soap:operation soapAction="urn:getConversion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConversorSoap12Binding" type="ns:ConversorPortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getConversion">
+      <soap12:operation soapAction="urn:getConversion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Conversor">
+    <wsdl:port name="ConversorHttpEndpoint" binding="ns:ConversorHttpBinding">
+      <http:address location="http://localhost:8080/axis2/services/Conversor"/>
+    </wsdl:port>
+    <wsdl:port name="ConversorHttpSoap12Endpoint" binding="ns:ConversorSoap12Binding">
+      <soap12:address location="http://localhost:8080/axis2/services/Conversor"/>
+    </wsdl:port>
+    <wsdl:port name="ConversorHttpSoap11Endpoint" binding="ns:ConversorSoap11Binding">
+      <soap:address location="http://localhost:8080/axis2/services/Conversor"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
